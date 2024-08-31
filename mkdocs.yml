@@ -98,7 +98,7 @@ nav:
     - 'HOME':
       - 'スタートガイド': './index.md'
       - 'エアギャップマシン作成': './setup/air-gap-guid.md'
-      - 'Dockerエアギャップマシン作成': './setup/docker-air-gap-guid.md'
+      - 'エアギャップマシン作成(Docker版)': './setup/docker-air-gap-guid.md'
       - 'プール構築マニュアル': './setup/1-ubuntu-setup.md'
       - 'プール運用マニュアル': './operation/start-guide.md'
       - 'SJGラーニング': ./learning.md
