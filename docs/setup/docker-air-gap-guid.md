@@ -24,14 +24,83 @@
     * Docker Desktop
     * airgap-1.0.5.tar.gz
 
-## **1- Docker Desktop のダウンロード**
+## **1- Docker Desktop のインストール**
 
-1-1. 下の画像の赤い四角のところをクリックしてダウンロードします。
+=== "macOS"
 
-* [Docker Desktop の入手](https://www.docker.com/ja-jp/products/docker-desktop/)
+    インストール方法が2つあります。ご自分のやりやすそうな手順を選択してください。
+
+    === "Homebrewを使用したインストール"
+
+        **Homebrewのバージョン確認**
+
+        ```Bash
+        brew --version
+        ```
+        > Homebrew 4.3.18
 
 
-## **2- Docker Desktop のインストール**
+        **インストール**
+        
+        ```Bash
+        brew install docker --cask
+        ```
+
+
+    === "ブラウザで手動インストール"
+    
+        **以下のページにアクセスします**
+
+        [Docker Desktop](https://www.docker.com/ja-jp/products/docker-desktop/)
+    
+        ![Docker Desktop](../images/docker-airgap/mac/docker-desktop-intel.png)
+    
+        **今すぐ始める**の右側のダウンロードボタンからインストーラーをダウンロードします。
+    
+        !!! danger "注意"
+            お使いのmacのチップにあわせてダウンロードしてください。
+    
+             | Intelチップの場合   | Apple Sliconの場合    |
+             |-------------------|------------------------------------|
+             | Mac版のダウンロード - Intelチップ | Mac版をダウンロード - Apple Silicon |
+    
+        **インストール**
+    
+        ダウンロードした `Docker.dmg` をダブルクリックしてインストールします。
+    
+        ![Docker Desktop Install](../images/docker-airgap/mac/docker-desktop-install.png)
+
+
+=== "Windows"
+
+    1-1. 下の画像の赤い四角のところをクリックしてダウンロードします。
+    
+    * [Docker Desktop の入手](https://www.docker.com/ja-jp/products/docker-desktop/)
+    
+    
+## **2- Docker Desktop の設定**
+
+=== "macOS"
+
+    2-1. Launchpadなどから`Docker Desktop`を起動します。
+
+    ![Docker Desktop Home](../images/docker-airgap/mac/docker-desktop-home.png)
+
+
+    2.2. macOS起動時の設定を変更します。
+
+    `General` タブの以下の設定を変更します。
+    
+    - Start Docker Desktop when you sign in to your computer
+    -- チェックする
+    - Open Docker Dashboard when Docker Desktop starts
+    -- チャックを外す
+
+    ![Docker Desktop Settings](../images/docker-airgap/mac/docker-desktop-settings.png)
+
+
+    2.3. `Apply & restart` ボタンを押下して設定を反映させます。
+
 
 === "Windows" 
     
@@ -44,39 +113,44 @@
     
     2-2. 
     
-=== "macOS"
-
-    2-1. ダウンロードした、`Docker Desktop` のインストーラーをダブルクリックして起動する。
-
-    | ファイル名                     |
-    |------------------------------|
-    | Docker Desktop Installer.dmg |
-
-    2-2. 
 
 
 
 
 ## **3- Dockerイメージのダウンロード**
 
-=== "Windows"
+!!! info "複数プールをお持ちの場合"
 
-    3-1. コンソールを開きます
-    
-    
+    先に、[複数プールへの対応](#9-)をご覧下さい。
+
 
 === "macOS"
 
-    3-1. ターミナルを開きます
+    3-1. エアギャップを配置するディレクトリを作成
 
+    エアギャップを配置するための `cardano` ディレクトリを作成します。
+
+    以下の図の場所に作成をしましたが、別の場所でも構いません。
+    ![Cardano Directory](../images/docker-airgap/mac/create-cardano-directory.png)
+
+
+    3-2. ターミナルを起動します
+
+    先ほど作成した `cardano` ディレクトリを右クリックし、ターミナルを起動します。
+    ![Open Terminal](../images/docker-airgap/mac/open-terminal.png)
+
+
+    3-3. ターミナルのカレントディレクトリを確認
+    
+    ![Current Directory](../images/docker-airgap/mac/opened-terminal.png)
     
     
-    3-2. Docker(-compose)定義のダウンロード
+    3-4. Docker(-compose)定義のダウンロード
     ```Bash
-    wget https://e-frontier.systems/cardano-tools/airgap-1.0.5.tar.gz -O airgap.tar.gz
+    wget https://e-frontier.systems/cardano-tools/airgap-latest.tar.gz -O airgap.tar.gz
     ```
     
-    3-3. ダウンロードファイルのハッシュ値を確認
+    3-5. ダウンロードファイルのハッシュ値を確認
     !!! warn "ハッシュ値を確認する理由"
         アップロードされたファイルが改ざんされていないかを確認する必要があります！
     ```Bash    
@@ -85,18 +159,24 @@
     > 9914f544f326e8c50919d013cab202452b92b71f03d0914c5906fe3fec2a6ae8
     
     
-    3-4. ダウンロードファイルの解凍
+    3-6. ダウンロードファイルの解凍
     ```Bash
     tar xvf airgap.tar.gz
     ```
 
 
-    3-5. 解凍したフォルダへ移動します
+    3-7. 解凍したフォルダへ移動します
     ```Bash
     cd airgap
     ```
-    
-    
+
+=== "Windows"
+
+    3-1. コンソールを開きます
+
+
+
+
 ## **4- エアギャップの初期設定**
 
 ### 4-1. ビルド
@@ -105,6 +185,7 @@
 ./build.sh
 ```
 !!! warning "エラーになる場合"
+    以下のコマンドを実行してシェルスクリプトの実行権限を付与してみてください。
     ```Bash
     chmod +x *.sh
     ```
@@ -186,9 +267,15 @@ exit
 7-1. 共有フォルダについて
 
 !!! info "ホストOSとエアギャップ間の共有フォルダ"
+
+    共有ディレクトリは以下のように設定されています。
+
+    - ホストOS(macOS): `cardano/airgap/share` ディレクトリ
+    - エアギャップ: `/mnt/share`
+
     ``` mermaid
     graph LR
-        A["./share"] <-->|共有フォルダ| B["/mnt/share"];
+        A["cardano/airgap/share"] <-->|共有フォルダ| B["/mnt/share"];
     ```
 
 
@@ -229,5 +316,12 @@ sign
 
 9-1. 複数プールへの対応も可能です
 
-複数のプールを運営されている方も1台のマシンで複数のエアギャップを運用することが可能です。
+複数のプールを運営されている方も1台のPCで複数のエアギャップを運用することが可能です。
+
+`3-6. ダウンロードファイルの解凍' にて案内しているコマンドの後に
+```Bash
+tar xvf airgap.tar.gz
+```
+
+    
 
