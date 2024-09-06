@@ -318,10 +318,24 @@ sign
 
 複数のプールを運営されている方も1台のPCで複数のエアギャップを運用することが可能です。
 
-`3-6. ダウンロードファイルの解凍' にて案内しているコマンドの後に
+`3-6. ダウンロードファイルの解凍' にて案内しているコマンド
 ```Bash
 tar xvf airgap.tar.gz
 ```
+その後に、以下を実行します（`01`はお好きな半角英数字に変えてもOKです。）
+```Bash
+mv airgap airgap-01
+```
 
-    
+以降、エアギャップを増やす度に、
+```Bash
+tar xvf airgap.tar.gz
+mv airgap airgap-02
+```
 
+```Bash
+tar xvf airgap.tar.gz
+mv airgap airgap-03
+```
+
+のようにフォルダ別けしていきます。
