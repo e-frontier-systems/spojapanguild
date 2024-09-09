@@ -1,9 +1,17 @@
 # **エアギャップマシン作成(Docker版)**
 
+!!! danger "注意"
+    このマニュアルはα版です！
+
+    また、Windows環境についてはまだ対応しておりません！
+
+
+
 !!! summary "エアギャップマシンとは？"
     プール運営で使用するウォレットの秘密鍵やプール運営の秘密鍵をオフライン上で管理し、エアギャップオフラインマシンでCLIを起動しトランザクションファイルに署名する作業に使用します。
     
     * ウォレットの秘密鍵やプール運営の秘密鍵をプール運営のオンラインマシン上に保管すると、ハッキングなどの際に資金盗難のリスクがあります。
+
 
 !!! summary "Dockerとは？"
     コンテナという技術を使用して...
@@ -22,7 +30,7 @@
 !!! info "ダウンロード/インストール"
     
     * Docker Desktop
-    * airgap-1.0.5.tar.gz
+    * airgap-1.x.x.tar.gz
 
 ## **1- Docker Desktop のインストール**
 
@@ -67,6 +75,8 @@
         **インストール**
     
         ダウンロードした `Docker.dmg` をダブルクリックしてインストールします。
+
+        ![Docker Desktop Installer](../images/docker-airgap/mac/docker-desktop-installer.png)        
     
         ![Docker Desktop Install](../images/docker-airgap/mac/docker-desktop-install.png)
 
@@ -156,7 +166,7 @@
     ```Bash    
     shasum -a 256 airgap.tar.gz
     ```
-    > 9914f544f326e8c50919d013cab202452b92b71f03d0914c5906fe3fec2a6ae8
+    > 128e37d7801ea7062884f34e558bc710dc50efafcf84fdc3426ca661edaba192
     
     
     3-6. ダウンロードファイルの解凍
@@ -219,9 +229,13 @@ cardano-cli version
 ```
 
 
-おめでとうございます🎉
-これでエアギャップが構築されました！
+**おめでとうございます🎉
+これでエアギャップが構築されました！**
 
+あとはキーをエアギャップにキーを設定するとエアギャップとして機能するようになります！
+
+!!! danger "注意"
+    ここからネットワークから切断する事を強くお勧めいたします。
 
 ### 4-4. コールドキーを準備
 
@@ -288,7 +302,7 @@ exit
     gtoolのエアギャップ専用版です。
     gtoolと連動してより簡単に操作ができるようにし、操作ミスを減らせるように開発しています。
 
-
+![ctool](../images/docker-airgap/mac/ctool.png)
 
 
 ### **8-2. cardano-cliのバージョンアップ**
