@@ -364,7 +364,7 @@ USBの場合は停止しただけではUSBを安全に取り外す事が出来�
     gtoolのエアギャップ専用版です。
     gtoolと連動してより簡単に操作ができるようにし、操作ミスを減らせるように開発しています。
 
-![ctool](../images/docker-airgap/mac/ctool.png)
+![ctool.sh](../images/docker-airgap/mac/ctool.png)
 
 
 ### **8-2. ctool.shのバージョンアップ**
