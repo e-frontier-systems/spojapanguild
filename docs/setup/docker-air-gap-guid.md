@@ -138,38 +138,78 @@
 
     3-1. エアギャップを配置するディレクトリを作成
 
-    エアギャップを配置するための `cardano` ディレクトリを作成します。
+    === "通常版"
 
-    以下の図の場所に作成をしましたが、別の場所でも構いません。
-    ![Cardano Directory](../images/docker-airgap/mac/create-cardano-directory.png)
+        エアギャップを配置するための `cardano` ディレクトリを作成します。
+    
+        以下の図の場所に作成をしましたが、別の場所でも構いません。
+        ![Cardano Directory](../images/docker-airgap/mac/create-cardano-directory.png)
 
+    === "USB版"
 
-    3-2. ターミナルを起動します
+        !!! danger "注意"
+            FAT32やexFATなどのフォーマットでは上手く動作しない場合があります。
+
+        **USBメモリをフォーマットします。**
+
+        Launchpadなどから「ディスクユーティリティ」を起動し、対象のUSBメモリを右クリックしたメニューから「消去」を選択します。
+        ![Erase](../images/docker-airgap/mac/disk-utility-erase.png)
+
+        「名前」には分かりやすい名前をご自由に設定してください。
+        「フォーマット」は「Mac OS拡張（大文字/小文字を区別、ジャーナリング）」を選択してください。
+        ![Erase Options](../images/docker-airgap/mac/disk-utility-erase-options.png)
+
+        フォーマットが終わったら「完了」を押下して、「ディスクユーティリティ」を閉じます。
+        ![Erase Options](../images/docker-airgap/mac/disk-utility-erase-complete.png)
+
+        USBメモリ内に「cardano」ディレクトリを作成します。
+        
+
+    **3-2. ターミナルを起動します**
 
     先ほど作成した `cardano` ディレクトリを右クリックし、ターミナルを起動します。
     ![Open Terminal](../images/docker-airgap/mac/open-terminal.png)
 
 
-    3-3. ターミナルのカレントディレクトリを確認
+    **3-3. ターミナルのカレントディレクトリを確認**
     
     ![Current Directory](../images/docker-airgap/mac/opened-terminal.png)
     
     
-    3-4. Docker(-compose)定義のダウンロード
-    ```Bash
-    wget https://e-frontier.systems/cardano-tools/airgap-latest.tar.gz -O airgap.tar.gz
-    ```
+    **3-4. Docker(-compose)定義のダウンロード**
+
+    === "通常版"
     
-    3-5. ダウンロードファイルのハッシュ値を確認
+        ```Bash
+        wget https://e-frontier.systems/cardano-tools/airgap-latest.tar.gz -O airgap.tar.gz
+        ```
+
+    === "USB版"
+
+        ```
+        wget https://e-frontier.systems/cardano-tools/airgap-usb-latest.tar.gz -O airgap.tar.gz
+        ```
+    
+    **3-5. ダウンロードファイルのハッシュ値を確認**
     !!! warn "ハッシュ値を確認する理由"
-        アップロードされたファイルが改ざんされていないかを確認する必要があります！
-    ```Bash    
-    shasum -a 256 airgap.tar.gz
-    ```
-    > 128e37d7801ea7062884f34e558bc710dc50efafcf84fdc3426ca661edaba192
+        ハッシュ値は、ファイルの内容を特定のアルゴリズムで計算して得られる固定長の文字列で、ファイルの内容が少しでも変わるとハッシュ値も大きく変わるため、ファイルが改ざんされていないかを確認する非常に有効な手段です。
+
+    === "通常版"
+
+        ```Bash    
+        shasum -a 256 airgap.tar.gz
+        ```
+        > 128e37d7801ea7062884f34e558bc710dc50efafcf84fdc3426ca661edaba192
+
+    === "USB版"
+
+        ```Bash    
+        shasum -a 256 airgap.tar.gz
+        ```
+        > 3a181791861134fc3abbac1cf37bb6ead5499dba7ba16664530938968fa75b54
+        
     
-    
-    3-6. ダウンロードファイルの解凍
+    3-6. ダウンロードファイルを解凍します
     ```Bash
     tar xvf airgap.tar.gz
     ```
@@ -215,7 +255,7 @@
 ```Bash
 ./login.sh
 ```
-コンソールの表記が変わります。
+コンソールの表記が変わり、エアギャップにログイン出来ます。
 
 > To run a command as administrator (user "root"), use "sudo <command>".
 > See "man sudo_root" for details.
@@ -223,10 +263,13 @@
 > cardano@a48d8df1282e:~$
 
 
-試しに、`cardano-cli`のバージョンを確認してみましょう！
-```Bash
-cardano-cli version
-```
+!!! information "確認"
+    試しに、`cardano-cli`のバージョンを確認してみましょう！
+    ```Bash
+    cardano-cli version
+    ```
+    > cardano-cli 9.2.1.0 - linux-x86_64 - ghc-8.10
+    > git rev efd560070aaf042d1eb4680ae37fc607c7742319
 
 
 **おめでとうございます🎉
@@ -235,13 +278,24 @@ cardano-cli version
 あとはキーをエアギャップにキーを設定するとエアギャップとして機能するようになります！
 
 !!! danger "注意"
-    ここからネットワークから切断する事を強くお勧めいたします。
+    ここからはキーファイルを扱うためネットワークから切断する事を強くお勧めいたします。
 
 ### 4-4. コールドキーを準備
 
 `airgap`フォルダ内の`share`フォルダ内に、`cold-keys`フォルダと、`cnode`フォルダがあらかじめ準備されています。
 各フォルダ内には空のファイルが用意されていますので、既存のエアギャップより同じファイル名のファイルを上書きコピーしてください。
 
+- cnode/
+    - payment.addr
+    - payment.skey
+    - payment.vkey
+    - stake.addr
+    - stake.skey
+    - stake.vkey
+- cold-keys/
+    - node.counter
+    - node.skey
+    - node.vkey
 
 
 ### 4-5. コールドキーをエアギャップに取り込む
@@ -252,7 +306,7 @@ cardano-cli version
 copy-keys
 ```
 
-!!! admonition "注意"
+!!! danger "注意"
     正常にコピーされた事を確認した後、先ほど上書きコピーした`share`フォルダ内の`cold-keys`フォルダと、`cnode`フォルダを**必ずUSBメモリ等にバックアップしたうえで削除してください！**
 
 
@@ -274,6 +328,14 @@ exit
 ./stop.sh
 ```
 
+
+### 6-3. 取り出し
+
+USBの場合は停止しただけではUSBを安全に取り外す事が出来ません。
+代わりに以下のコマンドを使用してください。
+```Bash
+./shutdown.sh
+```
 
 
 ## **7- 共有フォルダについて**
@@ -305,7 +367,17 @@ exit
 ![ctool](../images/docker-airgap/mac/ctool.png)
 
 
-### **8-2. cardano-cliのバージョンアップ**
+### **8-2. ctool.shのバージョンアップ**
+
+1. `share`フォルダに新しいバージョンの`ctool.sh`をUSBメモリなどで持ってきて貼り付けます。
+2. エアギャップにログインして、以下のコマンドを実行します。
+    ```Bash
+    cp /mnt/share/ctool.sh $HOME/bin/
+    rm /mnt/share/ctool.sh
+    ```
+
+
+### **8-3. cardano-cliのバージョンアップ**
 
 1. `./share`フォルダに新しいバージョンの`cardano-cli`をUSBメモリなどで持ってきて貼り付けます。
 2. エアギャップにログインして、以下のコマンドを実行します。
@@ -318,7 +390,7 @@ exit
    ```
 
 
-### **8-3. 報酬出金時トランザクションに署名する**
+### **8-4. 報酬出金時トランザクションに署名する**
 
 `./share`フォルダに`tx.raw`を貼り付けます。
 ```Bash
@@ -326,7 +398,7 @@ sign
 ```
 `./share`フォルダに`tx.signed`が出力されます。
 
-### **8-4. KESの更新**
+### **8-5. KESの更新**
 
 
 
