@@ -14,7 +14,7 @@
 
 
 !!! summary "Dockerとは？"
-    コンテナという技術を使用して...
+    Dockerは、アプリケーションをコンテナと呼ばれる軽量な仮想環境で実行するためのオープンソースソフトウェアです。これにより、環境依存を解消し、効率的な開発とデプロイが可能になります。
 
 ## **インストール要件**
 
@@ -121,7 +121,6 @@
     | Docker Desktop Installer.exe |
     
     
-    2-2. 
     
 
 
@@ -199,23 +198,23 @@
         ```Bash    
         shasum -a 256 airgap.tar.gz
         ```
-        > 128e37d7801ea7062884f34e558bc710dc50efafcf84fdc3426ca661edaba192
+        > 2aabab94f09691b178ec5874578d8cb7448817fa98ded78e8e4e76f94c538684
 
     === "USB版"
 
         ```Bash    
         shasum -a 256 airgap.tar.gz
         ```
-        > 3a181791861134fc3abbac1cf37bb6ead5499dba7ba16664530938968fa75b54
+        > acfba3b76b03c115d80a43d15147782c075fb65d083ca2cf354c991b9bdeffec
         
     
-    3-6. ダウンロードファイルを解凍します
+    **3-6. ダウンロードファイルを解凍します**
     ```Bash
     tar xvf airgap.tar.gz
     ```
 
 
-    3-7. 解凍したフォルダへ移動します
+    **3-7. 解凍したフォルダへ移動します**
     ```Bash
     cd airgap
     ```
@@ -366,6 +365,14 @@ USBの場合は停止しただけではUSBを安全に取り外す事が出来�
 
 ![ctool.sh](../images/docker-airgap/mac/ctool.png)
 
+現時点で出来ること
+- ウォレット操作
+  - 報酬の引き出し
+- KESの更新
+- 初期設定
+- cardano-cliのバージョンアップ
+- ctoolのバージョンアップ
+
 
 ### **8-2. ctool.shのバージョンアップ**
 
@@ -400,7 +407,7 @@ sign
 
 ### **8-5. KESの更新**
 
-
+ctoolを使用してください。
 
 
 
