@@ -28,7 +28,7 @@
 
         メタデータファイルを作成する
 
-        ``` title="このボックスはすべてコピーして実行してください"
+        ```bash title="このボックスはすべてコピーして実行してください"
         cat > $NODE_HOME/poolMetaData.json << EOF
         {
             "name": "$name",
@@ -146,7 +146,7 @@
 
 === "エアギャップオフラインマシン"
     ```bash
-    cardano-cli conway stake-address delegation-certificate \
+    cardano-cli conway stake-address stake-delegation-certificate \
         --stake-verification-key-file stake.vkey \
         --cold-verification-key-file $HOME/cold-keys/node.vkey \
         --out-file deleg.cert
