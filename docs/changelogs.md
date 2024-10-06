@@ -1,5 +1,14 @@
 # 変更履歴
 
+## 2024/10/06　ver. 13.4.5
+!!! note ""
+    * コマンドの軽微な修正
+
+## 2024/10/01　ver. 13.4.4
+!!! note ""
+    * cardano-node v9.2.1対応
+    * ガバナンスアクションSPO投票 [CLIコマンド追加](operation/gov-spo-vote.md)
+
 ## 2024/09/28　ver. 13.4.3
 !!! note ""
     * `cardano-cli conway`対応
